@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.List;
 
 @Service
 public class CategoriaService {
@@ -44,6 +45,12 @@ public class CategoriaService {
         catch (DataIntegrityViolationException e){
             throw new DataIntegrityException();
         }
+    }
+
+
+    public List<Categoria> findAll(){
+        return repo.findAll();
+
     }
 
 
