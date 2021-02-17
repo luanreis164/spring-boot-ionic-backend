@@ -1,6 +1,7 @@
 package com.luanreis.cursosb.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanreis.cursosb.domain.enums.TipoCliente;
 
 import javax.persistence.*;
@@ -27,6 +28,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 

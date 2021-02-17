@@ -1,6 +1,7 @@
 package com.luanreis.cursosb.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanreis.cursosb.domain.enums.EstadoPagamento;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public abstract class Pagamento implements Serializable {
     private Integer id;
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
