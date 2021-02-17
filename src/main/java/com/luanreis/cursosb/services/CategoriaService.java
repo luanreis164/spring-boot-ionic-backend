@@ -6,6 +6,9 @@ import com.luanreis.cursosb.services.exceptions.DataIntegrityException;
 import com.luanreis.cursosb.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -47,9 +50,15 @@ public class CategoriaService {
         }
     }
 
-
     public List<Categoria> findAll(){
         return repo.findAll();
+
+    }
+
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page,linesPerPage, Sort.Direction.valueOf(direction),orderBy);
+        return repo.findAll(pageRequest);
+
 
     }
 
