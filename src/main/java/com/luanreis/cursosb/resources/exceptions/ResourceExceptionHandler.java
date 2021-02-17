@@ -1,5 +1,6 @@
 package com.luanreis.cursosb.resources.exceptions;
 
+import com.luanreis.cursosb.services.exceptions.DataIntegrityException;
 import com.luanreis.cursosb.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<Object> idNotFound(ObjectNotFoundException exception, WebRequest request){
+    public ResponseEntity<Object> idNotFound(ObjectNotFoundException exception, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", "Categoria não encontrada.");
@@ -24,4 +25,16 @@ public class ResourceExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
 
     }
+
+
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<Object> dataIntegrity(DataIntegrityException dataexception, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "Não é possivel excluir uma categoria que possui produtos.");
+
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+
+    }
+
 }

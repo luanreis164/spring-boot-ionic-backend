@@ -2,9 +2,10 @@ package com.luanreis.cursosb.services;
 
 import com.luanreis.cursosb.domain.Categoria;
 import com.luanreis.cursosb.repositories.CategoriaRepository;
+import com.luanreis.cursosb.services.exceptions.DataIntegrityException;
 import com.luanreis.cursosb.services.exceptions.ObjectNotFoundException;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -35,6 +36,15 @@ public class CategoriaService {
         return repo.save(obj);
     }
 
+    public void delete(Integer id){
+        find(id);
+        try {
+            repo.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException();
+        }
+    }
 
 
 }
