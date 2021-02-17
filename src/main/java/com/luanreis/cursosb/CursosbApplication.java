@@ -1,13 +1,8 @@
 package com.luanreis.cursosb;
 
-import com.luanreis.cursosb.domain.Categoria;
-import com.luanreis.cursosb.domain.Cidade;
-import com.luanreis.cursosb.domain.Estado;
-import com.luanreis.cursosb.domain.Produto;
-import com.luanreis.cursosb.repositories.CategoriaRepository;
-import com.luanreis.cursosb.repositories.CidadeRepository;
-import com.luanreis.cursosb.repositories.EstadoRepository;
-import com.luanreis.cursosb.repositories.ProdutoRepository;
+import com.luanreis.cursosb.domain.*;
+import com.luanreis.cursosb.domain.enums.TipoCliente;
+import com.luanreis.cursosb.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,6 +21,10 @@ public class CursosbApplication implements CommandLineRunner {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EstadoRepository estadoRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 
 
@@ -68,7 +67,18 @@ public class CursosbApplication implements CommandLineRunner {
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 
+		Cliente cli1 = new Cliente(null,"Thalita Gomes","thalita@gmail.com","15313131113", TipoCliente.PESSOAFISICA);
 
+		cli1.getTelefones().addAll(Arrays.asList("13996735588","139813141111"));
+
+		Endereco e1 = new Endereco(null,"Rua Israel Rodrigues Cardoso","300","Casa","Tude Bastos","11722645",cli1,c2);
+		Endereco e2 = new Endereco(null,"Rua Josefina Bakhita","527","Casa","Vila Sonia","11722330",cli1,c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 
 	}
 
