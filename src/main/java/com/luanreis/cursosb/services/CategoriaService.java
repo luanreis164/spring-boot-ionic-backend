@@ -26,7 +26,7 @@ public class CategoriaService {
         if(obj.isPresent()){
             return obj.get();
         }else{
-            throw new ObjectNotFoundException();
+            throw new ObjectNotFoundException("Categoria não encontrada! ID: "+ id + ", Tipo:"  + Categoria.class);
         }
     }
 
@@ -47,7 +47,7 @@ public class CategoriaService {
             repo.deleteById(id);
         }
         catch (DataIntegrityViolationException e){
-            throw new DataIntegrityException();
+            throw new DataIntegrityException("Não é possivel excluir uma categoria com produtos.");
         }
     }
 

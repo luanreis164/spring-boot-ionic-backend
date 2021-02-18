@@ -23,23 +23,19 @@ import java.util.List;
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ObjectNotFoundException.class)
-    public ResponseEntity<Object> idNotFound(ObjectNotFoundException exception, WebRequest request) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "Categoria não encontrada.");
+    public ResponseEntity<StandardError> idNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        StandardError err= new StandardError(HttpStatus.NOT_FOUND.value(),e.getMessage(),System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 
     }
 
 
     @ExceptionHandler(DataIntegrityException.class)
-    public ResponseEntity<Object> dataIntegrity(DataIntegrityException dataexception, WebRequest request) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("message", "Não é possivel excluir uma categoria que possui produtos.");
+    public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        StandardError err= new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(),System.currentTimeMillis());
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 
     }
 

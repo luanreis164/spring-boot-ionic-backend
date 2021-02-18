@@ -2,8 +2,14 @@ package com.luanreis.cursosb.services.exceptions;
 
 public class DataIntegrityException extends RuntimeException {
 
-    public DataIntegrityException(){
-        super ("Não é possivel excluir uma categoria que possui produtos.");
+    private static final long serialVersionUID = 1L;
+
+    public DataIntegrityException(String msg){
+        super(msg);
+    }
+
+    public DataIntegrityException(String msg,Throwable cause){
+        super (msg,cause);
     }
 
 }
