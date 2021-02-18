@@ -1,6 +1,7 @@
 package com.luanreis.cursosb.services;
 
 import com.luanreis.cursosb.domain.Categoria;
+import com.luanreis.cursosb.dto.CategoriaDTO;
 import com.luanreis.cursosb.repositories.CategoriaRepository;
 import com.luanreis.cursosb.services.exceptions.DataIntegrityException;
 import com.luanreis.cursosb.services.exceptions.ObjectNotFoundException;
@@ -62,6 +63,9 @@ public class CategoriaService {
 
     }
 
+    public Categoria fromDTO(CategoriaDTO objDTO){
+        return new Categoria(objDTO.getId(), objDTO.getNome());
+    }
 
 }
 
